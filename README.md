@@ -1,6 +1,6 @@
 # WeatherWise
 
-This project is a weather application that provides weather information. Follow the steps below to run the project on your local machine.
+This project is a CLI app that provides weather information. Follow the steps below to run the project on your local machine.
 
 ## On your terminal
 
