@@ -4,6 +4,7 @@ import { prompt } from "enquirer";
 
 import fetchLatLngWeatherData from "./coordinates";
 import fetchCityWeatherData from "./place";
+import fetchForecastWeatherData from "./forecast";
 
 dotenv.config();
 
@@ -11,15 +12,21 @@ const apiKey: string = process.env.API_KEY as string;
 
 const init = async () => {
   try {
+    // Prompt the user to choose between entering a place name or latitude and longitude and forecast
     const { choice }: { choice: string } = await prompt({
       type: "select",
       name: "choice",
       message:
-        "Would you like to enter a name of the place or latitude and longitude?",
-      choices: ["Place", "Latitude and Longitude"],
+        "I can tell you some weather information. Would you like to enter a name of the place, co-ordinates OR co-ordinates for forecast?",
+      choices: [
+        "Place",
+        "Co-ordinates",
+        "Forecast (5 days) using co-ordinates",
+      ],
     });
 
-    if (choice === "Latitude and Longitude") {
+    // If the user chooses to enter Co-ordinates
+    if (choice === "Co-ordinates") {
       const response: CoordinatesInput = await prompt([
         {
           type: "input",
@@ -48,7 +55,9 @@ const init = async () => {
       ]);
 
       fetchLatLngWeatherData(response.lat, response.lng, apiKey);
-    } else if (choice === "Place") {
+    }
+    // If the user chooses to enter a place name
+    else if (choice === "Place") {
       const { place }: { place: string } = await prompt({
         type: "input",
         name: "place",
@@ -61,6 +70,36 @@ const init = async () => {
         },
       });
       fetchCityWeatherData(place, apiKey);
+    }
+    // If the user chooses to see forecast
+    else if (choice === "Forecast (5 days) using co-ordinates") {
+      const response: CoordinatesInput = await prompt([
+        {
+          type: "input",
+          name: "lat",
+          message: "Enter latitude:",
+          validate(value) {
+            const lat = parseFloat(value);
+            if (isNaN(lat) || lat < -90 || lat > 90) {
+              return "Please enter a valid latitude between -90 and 90.";
+            }
+            return true;
+          },
+        },
+        {
+          type: "input",
+          name: "lng",
+          message: "Enter longitude:",
+          validate(value) {
+            const lng = parseFloat(value);
+            if (isNaN(lng) || lng < -180 || lng > 180) {
+              return "Please enter a valid longitude between -180 and 180.";
+            }
+            return true;
+          },
+        },
+      ]);
+      fetchForecastWeatherData(response.lat, response.lng, apiKey);
     }
   } catch (error) {
     console.error("Error:", error);

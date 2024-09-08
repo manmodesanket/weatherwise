@@ -20,3 +20,9 @@ interface CoordinatesInput {
   lat: number;
   lng: number;
 }
+
+interface Forecast {
+  main: WeatherMain;
+  weather: Weather[];
+  dt_txt: string;
+}
