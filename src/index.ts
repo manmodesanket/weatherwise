@@ -6,7 +6,9 @@ import fetchLatLngWeatherData from "./coordinates";
 import fetchCityWeatherData from "./place";
 import fetchForecastWeatherData from "./forecast";
 
-dotenv.config();
+if (process.env.NODE_ENV === "development") {
+  dotenv.config();
+}
 
 const apiKey: string = process.env.API_KEY as string;
 

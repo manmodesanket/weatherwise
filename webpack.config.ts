@@ -13,6 +13,7 @@ const config: Configuration = {
     extensions: [".ts", ".js"],
   },
   plugins: [
+    new Dotenv(),
     new WebpackShellPluginNext({
       onBuildEnd: {
         scripts: ["node ./scripts/add-shebang.mjs"],
@@ -20,7 +21,6 @@ const config: Configuration = {
         parallel: true,
       },
     }),
-    new Dotenv(),
   ],
   module: {
     rules: [
