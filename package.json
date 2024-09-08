@@ -6,6 +6,7 @@
   "bin": {
     "weatherwise": "dist/bundle.js"
   },
+  "repository": "https://github.com/manmodesanket/weatherwise.git",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "npx webpack --config webpack.config.ts --mode development --watch",
@@ -41,7 +42,7 @@
     "enquirer": "^2.4.1"
   },
   "publishConfig": {
-    "registry": "https://registry.npmjs.org/",
+    "registry": "https://npm.pkg.github.com",
     "access": "public",
     "tag": "latest"
   }
