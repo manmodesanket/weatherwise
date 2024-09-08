@@ -1,6 +1,7 @@
 import path from "path";
 import { Configuration } from "webpack";
 import WebpackShellPluginNext from "webpack-shell-plugin-next";
+import Dotenv from "dotenv-webpack";
 
 const config: Configuration = {
   entry: "./src/index.ts",
@@ -19,6 +20,7 @@ const config: Configuration = {
         parallel: true,
       },
     }),
+    new Dotenv(),
   ],
   module: {
     rules: [
