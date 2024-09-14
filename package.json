@@ -1,6 +1,6 @@
 {
   "name": "weatherwise",
-  "version": "1.0.10",
+  "version": "1.0.6",
   "description": "A simple terminal weather app",
   "main": "src/index.js",
   "bin": {
