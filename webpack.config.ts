@@ -1,7 +1,9 @@
 import path from "path";
-import { Configuration } from "webpack";
+import { Configuration, DefinePlugin } from "webpack";
 import WebpackShellPluginNext from "webpack-shell-plugin-next";
 import Dotenv from "dotenv-webpack";
+
+const isDevelopment = process.env.NODE_ENV !== "production";
 
 const config: Configuration = {
   entry: "./src/index.ts",
@@ -13,10 +15,10 @@ const config: Configuration = {
     extensions: [".ts", ".js"],
   },
   plugins: [
-    new Dotenv({
-      path: path.resolve(__dirname, ".env"),
-      safe: process.env.NODE_ENV === "development",
+    new DefinePlugin({
+      "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
     }),
+    ...(isDevelopment ? [new Dotenv()] : []),
     new WebpackShellPluginNext({
       onBuildEnd: {
         scripts: ["node ./scripts/add-shebang.mjs"],

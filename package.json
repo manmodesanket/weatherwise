@@ -12,8 +12,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "npx webpack --config webpack.config.ts --mode development --watch",
-    "build": "webpack --config webpack.config.ts --mode production",
+    "watch": "NODE_ENV=development npx webpack --config webpack.config.ts --mode development --watch",
+    "build": "NODE_ENV=production webpack --config webpack.config.ts --mode production",
     "start": "node dist/bundle.js",
     "lint": "eslint --ext .ts,.tsx src",
     "format": "prettier --write src"
