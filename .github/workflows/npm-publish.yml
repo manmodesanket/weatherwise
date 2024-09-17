@@ -19,6 +19,10 @@ jobs:
           git config --global user.email "manmodesanket@gmail.com"
           git config --global user.name "manmodesanket"
 
+      - name: Set up NPM Authentication
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+
       - name: Checkout repository
         uses: actions/checkout@v3
 
@@ -45,8 +49,6 @@ jobs:
 
       - name: Publish to npm (with authentication)
         run: npm publish
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Push version bump commit
         run: git push --follow-tags
