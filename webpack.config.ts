@@ -17,6 +17,7 @@ const config: Configuration = {
   plugins: [
     new DefinePlugin({
       "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV),
+      "process.env.API_KEY": JSON.stringify(process.env.API_KEY),
     }),
     ...(isDevelopment ? [new Dotenv()] : []),
     new WebpackShellPluginNext({

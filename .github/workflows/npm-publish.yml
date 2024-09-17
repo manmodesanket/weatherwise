@@ -36,9 +36,9 @@ jobs:
         run: npm version ${{ github.event.inputs.version }}
 
       - name: Build packages
-        run: npm run build
         env:
           API_KEY: ${{ secrets.API_KEY }}
+        run: npm run build
 
       - name: Publish to npm (with authentication)
         run: npm publish
