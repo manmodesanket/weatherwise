@@ -35,13 +35,13 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Bump version based on input
+        run: npm version ${{ github.event.inputs.version }}
+
       - name: Build packages
         run: npm run build
         env:
           API_KEY: ${{ secrets.API_KEY }}
-
-      - name: Bump version based on input
-        run: npm version ${{ github.event.inputs.version }}
 
       - name: Install updated dependencies (after bump)
         run: npm ci
