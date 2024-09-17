@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Version type (patch, minor, major)'
+        description: "Version type (patch, minor, major)"
         required: true
         default: patch
 
@@ -25,9 +25,9 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '22.x'
-          cache: 'npm'
-          registry-url: 'https://registry.npmjs.org'
+          node-version: "22.x"
+          cache: "npm"
+          registry-url: "https://registry.npmjs.org"
 
       - name: Clean cache
         run: npm cache clean --force --cache ~/.npm
@@ -43,15 +43,12 @@ jobs:
         env:
           API_KEY: ${{ secrets.API_KEY }}
 
-      - name: Install updated dependencies (after bump)
-        run: npm ci
+      - name: Publish to npm (with authentication)
+        run: npm publish
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Push version bump commit
         run: git push --follow-tags
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Publish to npm (with authentication)
-        run: npm publish
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
