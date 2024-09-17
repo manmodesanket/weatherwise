@@ -13,7 +13,10 @@ const config: Configuration = {
     extensions: [".ts", ".js"],
   },
   plugins: [
-    new Dotenv(),
+    new Dotenv({
+      path: path.resolve(__dirname, ".env"),
+      safe: process.env.NODE_ENV === "development",
+    }),
     new WebpackShellPluginNext({
       onBuildEnd: {
         scripts: ["node ./scripts/add-shebang.mjs"],
