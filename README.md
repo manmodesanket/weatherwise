@@ -43,7 +43,7 @@ npx weatherwise
 1. Build the project
 
 ```
-npm run build
+npm run watch
 ```
 
 2. Start the application
